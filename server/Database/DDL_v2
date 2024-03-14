@@ -1,0 +1,214 @@
+
+/** It would be redundant cause the same infos are inside career
+CREATE TABLE Course (
+    Cod_Course INTEGER NOT NULL,
+    Title TEXT NOT NULL,
+    PRIMARY KEY (Cod_Course)
+);
+*/
+
+
+CREATE TABLE Degree (
+    Cod_Degree INTEGER NOT NULL,
+    Title_Degree TEXT NOT NULL,
+    PRIMARY KEY (Cod_Degree)
+);
+
+CREATE TABLE Department (
+    Cod_Department INTEGER NOT NULL,
+    Name TEXT NOT NULL,
+    PRIMARY KEY (Cod_Department)
+);
+
+CREATE TABLE ResearchGroup (
+    Id INTEGER NOT NULL,
+    Name TEXT NOT NULL,
+    Cod_Department INTEGER NOT NULL,
+    PRIMARY KEY (Id),
+    FOREIGN KEY (Cod_Department) REFERENCES Department(Cod_Department)
+);
+
+CREATE TABLE Career (
+    Student_Id INTEGER NOT NULL,
+    Cod_Course TEXT NOT NULL,
+    Title_Course TEXT NOT NULL,
+    CFU INTEGER NOT NULL,
+    Grade INTEGER NOT NULL,
+    Date DATE NOT NULL,
+    FOREIGN KEY (Student_Id) REFERENCES Student(Id)
+    PRIMARY KEY (Student_Id, Cod_Course)
+);
+
+CREATE TABLE User (
+    Id INTEGER NOT NULL,
+    Role TEXT CHECK (Role IN ('Student', 'Teacher')) NOT NULL,
+    PRIMARY KEY (Id)
+);
+
+CREATE TABLE External_Supervisor (
+    Id INTEGER NOT NULL,
+    Surname TEXT NOT NULL,
+    Name TEXT NOT NULL,
+    Email TEXT NOT NULL,
+    PRIMARY KEY (Id AUTOINCREMENT)
+);
+
+CREATE TABLE Teacher (
+    Id INTEGER NOT NULL,
+    Surname CHAR(50),
+    Name CHAR(100),
+    Email CHAR(320),
+    Cod_Group INTEGER NOT NULL,
+    Cod_Department INTEGER NOT NULL,
+    FOREIGN KEY (Id) REFERENCES User(Id) 
+    FOREIGN KEY (Cod_Group) REFERENCES ResearchGroup(Id),
+    FOREIGN KEY (Cod_Department) REFERENCES Department(Cod_Department),
+    PRIMARY KEY (Id)
+);
+
+CREATE TABLE Student (
+    Id INTEGER NOT NULL,
+    Surname CHAR(50),
+    Name CHAR(100),
+    Gender TEXT CHECK (Gender IN ('Male', 'Female')) NOT NULL,
+    Nationality TEXT NOT NULL,
+    Email CHAR(320),
+    Cod_Degree INTEGER NOT NULL,
+    Enrollment_Year INTEGER NOT NULL,
+    FOREIGN KEY (Id) REFERENCES User(Id)
+    FOREIGN KEY (Cod_Degree) REFERENCES Degree(Cod_Degree),
+    PRIMARY KEY (Id)
+);
+
+CREATE TABLE Secretary (
+    Id INTEGER NOT NULL UNIQUE,
+    Surname CHAR(50),
+    Name CHAR(100),
+    Email CHAR(320),
+    FOREIGN KEY (Id) REFERENCES User(Id),
+    PRIMARY KEY (Id)
+)
+
+CREATE TABLE Keyword (
+    Id INTEGER NOT NULL,
+    Name TEXT NOT NULL UNIQUE,
+    PRIMARY KEY (Id AUTOINCREMENT)
+);
+
+CREATE TABLE Proposal (
+    Id INTEGER NOT NULL,
+    Title TEXT NOT NULL,
+    Supervisor INTEGER NOT NULL,
+    Type TEXT NOT NULL,
+    Description TEXT NOT NULL,
+    Required_Knowledge TEXT,
+    Notes TEXT,
+    Expiration DATE NOT NULL,
+    Level TEXT CHECK (Level IN ('Bachelor', 'Master')) NOT NULL,
+    Archived INTEGER CHECK (Archived IN (0, 1)) NOT NULL DEFAULT 0,
+    FOREIGN KEY (Supervisor) REFERENCES Teacher(Id),
+    PRIMARY KEY (Id AUTOINCREMENT)
+);
+
+CREATE TABLE Proposal_Degrees (
+    Proposal_Id INTEGER NOT NULL,
+    Degree_Id INTEGER NOT NULL,
+    FOREIGN KEY (Proposal_Id) REFERENCES Proposal(Id),
+    FOREIGN KEY (Degree_Id) REFERENCES Degree(Cod_Degree),
+    PRIMARY KEY (Proposal_Id, Degree_Id)
+);
+
+CREATE TABLE Proposal_Groups (
+    Proposal_Id INTEGER NOT NULL,
+    Group_Id INTEGER NOT NULL,
+    FOREIGN KEY (Proposal_Id) REFERENCES Proposal(Id),
+    FOREIGN KEY (Group_Id) REFERENCES ResearchGroup(Id),
+    PRIMARY KEY (Proposal_Id, Group_Id)
+);
+
+CREATE TABLE Proposal_Keywords (
+    Proposal_Id INTEGER NOT NULL,
+    Keyword_Id INTEGER NOT NULL,
+    FOREIGN KEY (Proposal_Id) REFERENCES Proposal(Id),
+    FOREIGN KEY (Keyword_Id) REFERENCES Keyword(Id),
+    PRIMARY KEY (Proposal_Id, Keyword_Id)
+);
+
+CREATE TABLE Application (
+    Application_Id INTEGER NOT NULL,
+    Student_Id INTEGER NOT NULL,
+    Proposal_Id INTEGER NOT NULL,
+    Date DATE NOT NULL,
+    Status TEXT CHECK (Status IN ('Pending', 'Accepted', 'Rejected', 'Canceled')) NOT NULL,
+    Cv TEXT,
+    FOREIGN KEY (Student_Id) REFERENCES Student(Id),
+    FOREIGN KEY (Proposal_Id) REFERENCES Proposal(Id),
+    PRIMARY KEY (Application_Id AUTOINCREMENT) 
+);
+
+CREATE TABLE Proposal_Internal_Cosupervisor(
+    Proposal_Id INTEGER NOT NULL,
+    Co_Supervisor_Id INTEGER NOT NULL,
+    FOREIGN KEY (Proposal_Id) REFERENCES Proposal(Id),
+    FOREIGN KEY (Co_Supervisor_Id) REFERENCES Teacher(Id),
+    PRIMARY KEY (Proposal_Id, Co_Supervisor_Id)
+);
+
+CREATE TABLE Proposal_External_Cosupervisor(
+    Proposal_Id INTEGER NOT NULL,
+    Co_Supervisor_Id INTEGER NOT NULL,
+    FOREIGN KEY (Proposal_Id) REFERENCES Proposal(Id),
+    FOREIGN KEY (Co_Supervisor_Id) REFERENCES External_Supervisor(Id),
+    PRIMARY KEY (Proposal_Id, Co_Supervisor_Id)
+);
+
+-- NEW TABLES v
+
+CREATE TABLE Thesis(
+    Id INTEGER NOT NULL,
+    Student_Id INTEGER NOT NULL,
+    Supervisor_Id INTEGER NOT NULL,
+    Title TEXT NOT NULL,
+    Description TEXT NOT NULL,
+    Status TEXT CHECK (Status IN ('Accepted', 'Rejected', 'ChangeRequested', 'SecretaryAccepted', 'Pending')) NOT NULL,
+    Date DATE NOT NULL default CURRENT_TIMESTAMP,
+    FOREIGN KEY (Supervisor_Id) REFERENCES Teacher(Id),
+    FOREIGN KEY (Student_Id) REFERENCES Student(Id),
+    PRIMARY KEY (Id AUTOINCREMENT)
+);
+
+CREATE TABLE Thesis_Cosupervisors(
+    Thesis_Id INTEGER NOT NULL,
+    Cosupervisor_Id INTEGER NOT NULL,
+    FOREIGN KEY (Thesis_Id) REFERENCES Thesis(Id),
+    FOREIGN KEY (Cosupervisor_Id) REFERENCES Teacher(Id),
+    PRIMARY KEY (Thesis_Id, Cosupervisor_Id)
+);
+
+--SERVES AS A HISTORY FOR THE CHANGES MADE BY THE STUDENTS (MANAGED BY THE BACKEND)
+CREATE TABLE Thesis_Change_History(
+    Thesis_Id INTEGER NOT NULL,
+    Change TEXT NOT NULL,
+    Date DATE NOT NULL default CURRENT_TIMESTAMP,
+    FOREIGN KEY (Thesis_Id) REFERENCES Thesis(Id)
+);
+
+CREATE TABLE Thesis_Ending_Requests(
+    Thesis_Id INTEGER NOT NULL,
+    Request_Type TEXT CHECK (Request_Type IN ('Interrupt', 'Conclude')) NOT NULL,
+    Date DATE NOT NULL default CURRENT_TIMESTAMP,
+    Status TEXT CHECK (Status IN ('Accepted', 'Rejected', 'Pending')) NOT NULL,
+    FOREIGN KEY (Thesis_Id) REFERENCES Thesis(Id)
+);
+
+-- Notifications Table
+CREATE TABLE Notifications(
+    Id INTEGER NOT NULL,
+    User_Id INTEGER NOT NULL,
+    Title TEXT NOT NULL,
+    Message TEXT NOT NULL,
+    Read INTEGER CHECK (Read IN (0, 1)) NOT NULL DEFAULT 0,
+    Date DATE NOT NULL default CURRENT_TIMESTAMP,
+    FOREIGN KEY (User_Id) REFERENCES User(Id),
+    PRIMARY KEY (Id AUTOINCREMENT)
+);

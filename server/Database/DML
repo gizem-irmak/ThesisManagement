@@ -1,0 +1,194 @@
+--User
+INSERT INTO User VALUES
+    (317989, 'Student'),
+    (301316, 'Student'),
+    (319976, 'Student'),
+    (308344, 'Student'),
+    (314140, 'Student'),
+    (319572, 'Student'),
+    (12571, 'Teacher'),
+    (23817, 'Teacher'),
+    (78912, 'Teacher'),
+    (54723, 'Teacher'),
+    (96970, 'Teacher');
+
+--Degree
+INSERT INTO Degree VALUES
+    (1, 'Computer Engineering'),
+    (2, 'Mechanical Engineering'),
+    (3, 'Mathematical Engineering'),
+    (4, 'Electronic Engineering');
+
+--Department
+INSERT INTO Department VALUES
+    (1, 'Department of Computer Engineering'),
+    (2, 'Department of Electronics and Telecommunications'),
+    (3, 'Department of Mathematical Engineering'),
+    (4, 'Department of Mechanical and Aerospace Engineering');
+
+--ResearchGroup
+INSERT INTO ResearchGroup VALUES
+    (1, 'Computer Engineering', 1),
+    (2, 'Electronics and Telecommunications', 2),
+    (3, 'Mathematical Engineering', 3),
+    (4, 'Mechanical and Aerospace Engineering', 4);
+
+--Student
+INSERT INTO Student VALUES
+    (317989, 'Gaudino', 'Andrea', 'Male', 'Italian', 's317989@studenti.polito.it', 1, 2022),
+    (301316, 'Negin', 'Negin', 'Female', 'Iranian', 's301316@studenti.polito.it', 1, 2022),
+    (319976, 'Mahrous', 'Mahmoud', 'Male', 'Egyptian', 's319976@studenti.polito.it', 1, 2022),
+    (308344, 'Sanfrancesco', 'Federico', 'Male', 'Italian', 's308344@studenti.polito.it', 1, 2022),
+    (314140, 'Irmak', 'Gizem', 'Female', 'Turkish', 's314140@studenti.polito.it', 1, 2022),
+    (319572, 'Di Paolo', 'Domenico', 'Male', 'Italian', 's319572@studenti.polito.it', 1, 2022);
+
+--Secretary
+INSERT INTO Secretary VALUES (00001, 'Smith', 'Linda', 'c00001@secretary-email.com'):
+
+--Career
+INSERT INTO Career VALUES
+    (317989, '01SQMOV', 'Data Science e Tecnologie per le Basi di Dati', 8, 26, '2023-07-19'),
+    (317989, '01UDFOV', 'Applicazioni Web I', 6, 29, '2023-06-28'),
+    (317989, '04GSPOV', 'Software Engineering', 8, 26, '2023-06-05'),
+    (301316, '01SQMOV', 'Data Science e Tecnologie per le Basi di Dati', 8, 29, '2023-01-27'),
+    (301316, '02JEUOV', 'Formal Languages And Compilers', 6, 23, '2023-02-30'),
+    (301316, '02GOLOV', 'Architetture dei Sistemi di Elaborazione', 10, 25, '2023-01-11'),
+    (319976, '04GSPOV', 'Software Engineering', 8, 26, '2023-07-04'),
+    (319976, '02GOLOV', 'Architetture dei Sistemi di Elaborazione', 10, 30, '2023-06-26'),
+    (319976, '01UDFOV', 'Applicationi Web I', 6, 20, '2023-02-22'),
+    (308344, '01SQMOV', 'Data Science e Tecnologie per le Basi di Dati', 8, 26, '2023-01-12'),
+    (308344, '02JEUOV', 'Formal Languages And Compilers', 6, 23, '2023-02-30'),
+    (308344, '02GOLOV', 'Architetture dei Sistemi di Elaborazione', 10, 25, '2023-01-11'),
+    (314140, '01SQMOV', 'Data Science e Tecnologie per le Basi di Dati', 8, 26, '2023-07-19'),
+    (314140, '01UDFOV', 'Applicazioni Web I', 6, 29, '2023-06-28'),
+    (314140, '04GSPOV', 'Software Engineering', 8, 22, '2023-06-05'),
+    (319572, '01SQMOV', 'Data Science e Tecnologie per le Basi di Dati', 8, 29, '2023-07-19'),
+    (319572, '01UDFOV', 'Applicazioni Web I', 6, 26, '2023-06-28'),
+    (319572, '04GSPOV', 'Software Engineering', 8, 26, '2023-06-05');
+
+--External_Supervisor
+INSERT INTO External_Supervisor VALUES
+    (1, 'Fernando', 'Federico', 'federico@email.com'),
+    (2, 'Di Dio', 'Filippo', 'filippo@email.com');
+
+--Teacher
+INSERT INTO Teacher VALUES
+    (12571, 'Rossi', 'Mario', 'd12571@polito.it', 1, 1),
+    (23817, 'Bianchi', 'Luca', 'd23817@polito.it', 2, 2),
+    (78912, 'Verdi', 'Giuseppe', 'd78912@polito.it', 3, 3),
+    (54723, 'Gialli', 'Giovanni', 'd54723@polito.it', 4, 4),
+    (96970, 'Neri', 'Paolo', 'd96970@polito.it', 2, 2);
+
+--Keyword
+INSERT INTO Keyword VALUES
+    (1, 'Programming'),
+    (2, 'Logic'),
+    (3, 'Mathematic'),
+    (4, 'AI');
+
+--Proposal
+INSERT INTO Proposal VALUES
+    (1, 'Software Development Project', 12571, 'Development', 'Building Innovative Software', 'Software engineering, Programming', 'Familiarity with agile methodologies', '2024-02-20 18:18:18', 'Bachelor', 0),
+    (2, 'Mobile App Development Project', 12571, 'Development', 'Creating Mobile Applications', 'Mobile app development, UI/UX design', 'Experience with mobile platforms', '2024-01-10 18:18:18', 'Bachelor', 0),
+    (3, 'Aerospace Engineering Project', 54723, 'Development', 'Designing Aerospace Systems', 'Aerospace engineering, Aerodynamics', 'Knowledge of aviation regulations', '2024-03-05 18:18:18', 'Bachelor', 0),
+    (4, 'Civil Engineering Infrastructure Project', 78912, 'Development', 'Designing Civil Infrastructure', 'Structural engineering, Construction management', 'Knowledge of building codes', '2023-12-01 18:18:18', 'Bachelor', 0),
+    (5, 'Mechanical Engineering Study', 23817, 'Study', 'Investigating Mechanical Engineering', 'Solid mechanics, Fluid dynamics', 'Hands-on experience with CAD software', '2024-01-18 18:18:18', 'Bachelor', 0),
+    (6, 'Environmental Sustainability Project', 78912, 'Research', 'Investigating Environmental Impact', 'Environmental science, Sustainability', 'Awareness of ecological issues', '2024-02-19 18:18:18', 'Bachelor', 0),
+    (7, 'Electronics Design Project', 23817, 'Development', 'Electronic Engineering Project', 'Circuit design, PCB layout', 'Experience with embedded systems', '2023-01-01 18:18:18', 'Bachelor', 0),
+    (8, 'AI Research Project', 12571, 'Research', 'Exploring Artificial Intelligence', 'Machine Learning, Deep Learning', 'Research experience is a plus', '2023-12-01 18:18:18', 'Master', 1),
+    (9, 'Data Science Thesis', 12571, 'Research', 'Exploring Data Science', 'Statistics, Machine Learning', 'Programming skills in Python and R', '2023-12-10 18:18:18', 'Master', 0),
+    (10, 'Finance and Investment Study', 12571, 'Study', 'Analyzing Financial Markets', 'Finance, Investment analysis', 'Understanding of stock markets', '2024-02-25 18:18:18', 'Master', 0),
+    (11, 'Biomedical Research Thesis', 96970, 'Research', 'Advancing Biomedical Sciences', 'Biochemistry, Molecular biology', 'Laboratory skills are essential', '2024-02-01 18:18:18', 'Master', 0),
+    (12, 'Social Psychology Study', 96970, 'Study', 'Exploring Social Behavior', 'Psychology, Sociology', 'Research and analytical skills', '2024-01-28 18:18:18', 'Master', 0),
+    (13, 'Renewable Energy Research', 78912, 'Research', 'Advancing Renewable Energy Technologies', 'Renewable energy, Sustainability', 'Understanding of energy systems', '2024-01-19 18:18:18', 'Master', 0),
+    (14, 'Mathematical Modeling Project', 78912, 'Research', 'Mathematical Engineering Research', 'Advanced mathematics, Modeling', 'Strong mathematical background required', '2024-02-13 18:18:18', 'Master', 1),
+    (15, 'Cognitive Neuroscience Thesis', 12571, 'Research', 'Investigating Cognitive Processes', 'Neuroscience, Cognitive psychology', 'Experience with neuroimaging techniques', '2024-02-28 18:18:18', 'Master', 0);
+
+--Proposal_Degrees
+INSERT INTO Proposal_Degrees VALUES
+    (1, 1),
+    (2, 1),
+    (3, 1),
+    (4, 1),
+    (5, 1),
+    (6, 1),
+    (7, 1),
+    (8, 1),
+    (9, 1),
+    (10, 1),
+    (11, 1),
+    (12, 1),
+    (13, 1),
+    (14, 1),
+    (15, 1);
+
+--Proposal_Groups
+INSERT INTO Proposal_Groups VALUES
+    (1, 1),
+    (1, 3),
+    (2, 4),
+    (3, 3),
+    (4, 2),
+    (5, 1),
+    (6, 4),
+    (7, 2),
+    (8, 1),
+    (9, 4),
+    (10, 2),
+    (11, 1),
+    (12, 4),
+    (13, 2),
+    (14, 1),
+    (15, 4);
+
+--Proposal_Keywords
+INSERT INTO Proposal_Keywords VALUES
+    (1, 4),
+    (2, 1),
+    (2, 3),
+    (3, 3),
+    (4, 2),
+    (4, 4),
+    (5, 1),
+    (5, 4),
+    (6, 3),
+    (6, 4),
+    (7, 2),
+    (7, 4),
+    (8, 1),
+    (8, 2),
+    (9, 1),
+    (9, 3),
+    (10, 2),
+    (10, 3),
+    (11, 3),
+    (11, 4),
+    (12, 1),
+    (12, 2),
+    (13, 1),
+    (13, 4),
+    (14, 2),
+    (14, 3),
+    (15, 1),
+    (15, 2);
+
+INSERT INTO Application(Student_Id, Proposal_Id, Date, Status) VALUES
+    (317989, 1, '2023-11-20', 'Rejected'),
+    (301316, 1, '2023-11-21', 'Rejected'),
+    (319976, 4, '2023-11-22', 'Rejected'),
+    (308344, 5, '2023-11-23', 'Rejected'),
+    (314140, 1, '2023-11-24', 'Rejected'),
+    (319572, 3, '2023-11-25', 'Rejected'),
+    (317989, 2, '2023-11-26', 'Pending'),
+    (319976, 9, '2023-12-02', 'Accepted');
+
+INSERT INTO Proposal_Internal_Cosupervisor VALUES
+    (1, 23817),
+    (1, 78912),
+    (2, 54723),
+    (5, 12571);
+
+INSERT INTO Proposal_External_Cosupervisor VALUES
+    (3, 1),
+    (3, 2),
+    (4, 2);

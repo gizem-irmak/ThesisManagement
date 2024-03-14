@@ -1,0 +1,135 @@
+.main-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.form-container {
+    width: 80%;
+    margin-top: 3%;
+}
+
+.action-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.form-section {
+    margin-right: 20px;
+}
+
+@media (max-width: 767px) {
+    .form-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .form-section {
+        width: 100%;
+        margin-right: 0;
+        overflow: hidden;
+    }
+
+    .textarea-section {
+        width: 100%;
+    }
+
+    .actions-section {
+        width: 100%;
+        margin-top: 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+.button-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.circle-button {
+    border: none;
+    background-color: #23527c;
+    width: 4rem;
+    height: 4rem;
+    margin-right: 10px;
+}
+
+.circle-button-selected {
+    border: none;
+    width: 4rem;
+    height: 4rem;
+    margin-right: 10px;
+    background-color: rgb(255, 122, 8) !important;
+}
+
+.circle-button:hover {
+    background-color: rgb(255, 122, 8);
+}
+
+.icon-container {
+    font-size: 2dvh;
+}
+
+.insert-proposal-div {
+    width: 5%;
+}
+
+.label-item {
+    color: #23527c;
+    font-weight: bold;
+    font-family: sans-serif !important;
+}
+
+.input-item {
+    text-align: left;
+}
+
+#save-button {
+    background-color: #23527c;
+    border: none;
+}
+
+.field-item-disabled,
+.field-item-enabled {
+    border-color: rgb(204, 197, 200);
+    background-color: rgb(204, 197, 200);
+    margin-bottom: 10px;
+}
+
+.field-item-disabled:focus {
+    border-color: rgb(204, 197, 200);
+    background-color: rgb(204, 197, 200);
+}
+
+.action-allowed-button {
+    background-color: #23527c;
+    border: none;
+    border-radius: 30px;
+}
+
+.action-allowed-button:hover {
+    background-color: rgb(255, 122, 8);
+}
+
+.action-icon-container {
+    font-size: 1.3rem;
+}
+
+.text-danger {
+    margin-bottom: 5px;
+    font-size: 0.8rem;
+}
+
+.student-badge {
+    background-color: #23527c !important;
+    border-radius: 30px;
+    margin: 0;
+    padding: 2;
+}

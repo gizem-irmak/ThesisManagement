@@ -1,0 +1,138 @@
+-- PREDEFINED TABLES
+
+CREATE TABLE Degree (
+    Cod_Degree INTEGER NOT NULL,
+    Title_Degree TEXT NOT NULL,
+    PRIMARY KEY (Cod_Degree)
+);
+
+CREATE TABLE Career (
+    Student_Id INTEGER NOT NULL,
+    Cod_Course INTEGER NOT NULL,
+    Title_Course TEXT NOT NULL,
+    CFU INTEGER NOT NULL,
+    Grade INTEGER NOT NULL,
+    Date DATE NOT NULL,
+
+    FOREIGN KEY (Student_Id) REFERENCES Student(Id),
+    FOREIGN KEY (Cod_Course) REFERENCES Course(Cod_Course),
+    FOREIGN KEY (Title_Course) REFERENCES Course(Title),
+    PRIMARY KEY (Student_Id, Cod_Course)
+);
+
+CREATE TABLE Student (
+    Id INTEGER NOT NULL,
+    Surname CHAR(50),
+    Name CHAR(100),
+    Gender TEXT CHECK (Gender IN ('Male', 'Female')) NOT NULL,
+    Nationality TEXT NOT NULL,
+    Email CHAR(320),
+    Cod_Degree INTEGER NOT NULL,
+    Enrollment_Year INTEGER NOT NULL,
+    --FOREIGN KEY (Id) REFERENCES User(Id), this is coming from outside.
+    FOREIGN KEY (Cod_Degree) REFERENCES Degree(Cod_Degree),
+    PRIMARY KEY (Id)
+);
+
+CREATE TABLE Teacher (
+    Id INTEGER NOT NULL,
+    Surname CHAR(50),
+    Name CHAR(100),
+    Email CHAR(320),
+    Cod_Group INTEGER NOT NULL,
+    Cod_Department INTEGER NOT NULL,
+    --FOREIGN KEY (Id) REFERENCES User(Id), same, external data
+    FOREIGN KEY (Cod_Group) REFERENCES ResearchGroup(Id),
+    FOREIGN KEY (Cod_Department) REFERENCES Department(Cod_Department),
+    PRIMARY KEY (Id)
+);
+
+-- TABLES SERVING THE PREDEFINED TABLES
+
+CREATE TABLE ResearchGroup (
+    Id INTEGER NOT NULL,
+    Name TEXT NOT NULL,
+    PRIMARY KEY (Id)
+);
+
+CREATE TABLE Course (
+    Cod_Course INTEGER NOT NULL,
+    Title TEXT NOT NULL,
+    PRIMARY KEY (Cod_Course)
+);
+
+CREATE TABLE Department (
+    Cod_Department INTEGER NOT NULL,
+    Name TEXT NOT NULL,
+    PRIMARY KEY (Cod_Department)
+);
+
+-- Team-Made Tables
+
+-- for the user table do we need it as the saml will be introduced?
+CREATE TABLE User (
+    Id INTEGER NOT NULL,
+    Role TEXT NOT NULL,
+    PRIMARY KEY (Id)
+);
+
+
+CREATE TABLE Thesis_Proposal (
+    Id INTEGER NOT NULL,
+    Title TEXT NOT NULL,
+    Supervisor INTEGER NOT NULL,
+    Keywords TEXT NOT NULL,
+    Type TEXT NOT NULL,
+    Description TEXT NOT NULL,
+    Required_Knowledge TEXT,
+    Notes TEXT,
+    Expiration DATE NOT NULL,
+    Level TEXT NOT NULL,
+    CDS TEXT NOT NULL,
+    Archived INTEGER CHECK (Archived IN (0, 1)) NOT NULL DEFAULT 0,
+    FOREIGN KEY (Supervisor) REFERENCES Teacher(Id),
+    PRIMARY KEY (Id AUTOINCREMENT)
+);
+
+CREATE TABLE Thesis_Applications (
+    Th_Proposal_Id INTEGER NOT NULL,
+    Student_Id INTEGER NOT NULL,
+    Status TEXT CHECK (Status IN ('Pending', 'Accepted', 'Rejected')) NOT NULL,
+    FOREIGN KEY (Th_Proposal_Id) REFERENCES Thesis_Proposal(Id),
+    FOREIGN KEY (Student_Id) REFERENCES Student(Id),
+    PRIMARY KEY (Th_Proposal_Id, Student_Id)
+);
+
+CREATE TABLE Groups_By_Thesis (
+    Th_Proposal_Id INTEGER NOT NULL,
+    Group_Id INTEGER NOT NULL,
+    FOREIGN KEY (Th_Proposal_Id) REFERENCES Thesis_Proposal(Id),
+    FOREIGN KEY (Group_Id) REFERENCES ResearchGroup(Id),
+    PRIMARY KEY (Th_Proposal_Id, Group_Id)
+);
+
+CREATE TABLE Thesis_Cosupervisors (
+    Th_Proposal_Id INTEGER NOT NULL,
+    Teacher_Id INTEGER,  
+    FOREIGN KEY (Th_Proposal_Id) REFERENCES Thesis_Proposal(Id),
+    FOREIGN KEY (Teacher_Id) REFERENCES Teacher(Id),
+    PRIMARY KEY (Th_Proposal_Id, Teacher_Id)
+);
+
+CREATE TABLE Degrees_By_Thesis (
+    Th_Proposal_Id INTEGER NOT NULL,
+    Cod_Degree INTEGER NOT NULL,
+    FOREIGN KEY (Th_Proposal_Id) REFERENCES Thesis_Proposal(Id),
+    FOREIGN KEY (Cod_Degree) REFERENCES Degree(Cod_Degree),
+    PRIMARY KEY (Th_Proposal_Id, Cod_Degree)
+);
+
+CREATE TABLE Thesis_External_Cosupervisors (
+    Id INTEGER NOT NULL,
+    Th_Proposal_Id INTEGER NOT NULL,
+    Surname TEXT NOT NULL,
+    Name TEXT NOT NULL,
+    Email TEXT NOT NULL,
+    FOREIGN KEY (Th_Proposal_Id) REFERENCES Thesis_Proposal(Id),
+    PRIMARY KEY (Id AUTOINCREMENT)
+);

@@ -1,0 +1,18 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "thesis",
+            "group": "thesis",
+            "database": "${workspaceFolder:untitled folder}/server/Database/DB.sqlite"
+        },
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "thesis3",
+            "group": "thesis3",
+            "database": "${workspaceFolder:thesis-management-team17}/server/Database/DB.sqlite"
+        }
+    ]
+}

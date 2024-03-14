@@ -1,0 +1,9 @@
+.modal-title {
+    color: white;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.modal-header {
+    background-color: #23527c;
+}

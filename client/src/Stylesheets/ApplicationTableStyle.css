@@ -1,0 +1,12 @@
+@media (max-width: 768px) {
+    .table-responsive {
+        overflow-x: auto;
+    }
+}
+
+.table-responsive {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}

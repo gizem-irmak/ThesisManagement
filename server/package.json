@@ -1,0 +1,35 @@
+{
+  "scripts": {
+    "start": "concurrently \"nodemon index.js\"",
+    "test": "jest --passWithNoTests",
+    "test:coverage": "jest server/__tests__/unit --runInBand --coverage --colors",
+    "test:e2e": "npx jest server/__tests__/e2e --runInBand --coverage --coverageDirectory=coverage/coverage_e2e --colors",
+    "test:unit": "npx jest server/__tests__/unit --runInBand --coverage --coverageDirectory=coverage/coverage_unit --colors"
+  },
+  "dependencies": {
+    "@babel/preset-env": "^7.23.2",
+    "body-parser": "^1.20.2",
+    "concurrently": "^8.2.2",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "express-validator": "^7.0.1",
+    "fs": "^0.0.1-security",
+    "jest": "^29.7.0",
+    "jest-extended": "^4.0.2",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.7",
+    "npx": "^3.0.0",
+    "passport": "^0.6.0",
+    "passport-auth0": "^1.4.4",
+    "passport-local": "^1.0.0",
+    "passport-saml": "^3.2.4",
+    "selenium-webdriver": "^4.16.0",
+    "sqlite3": "^5.1.6",
+    "supertest": "^6.3.3"
+  },
+  "jest": {
+    "testTimeout": 30000
+  }
+}

@@ -1,0 +1,153 @@
+const express = require('express');
+const proposalRouter = express.Router();
+
+const ThesisProposalController = require('../Controllers/ThesisProposalController');
+
+
+proposalRouter.post('/thesis/newproposal', ThesisProposalController.newThesisRequest); 
+
+
+module.exports = proposalRouter;
+
+const express = require('express');
+const apiRouter = express.Router();
+
+apiRouter.use('/test', require('./RouterTest'));
+
+apiRouter.use('/proposals', require('./RouterSearch'));
+
+apiRouter.use('/application', require('./RouterApplication'));
+
+apiRouter.use('/auth', require('./RouterAuth'));
+
+apiRouter.use('/thesis', require('./RouterThesis'));
+
+apiRouter.use('/thesis', require('./ProposalRouter'));
+
+apiRouter.use('/degree', require('./RouterDegree'));
+
+apiRouter.use('/teacher', require('./RouterTeacher'));
+
+apiRouter.use('/cosupervisor', require('./RouterCoSupervisor'));
+
+apiRouter.use('/groups', require('./RouterResearchGroup'));
+
+
+// All the routes will be protected by the checkAuthentication middleware
+const checkAuthentication = (req, res, next) => {
+    req.isAuthenticated() ? next() : res.status(401).json({ errorMessage: 'Unauthorized' });
+}
+
+apiRouter.use((req, res, next) => {
+    checkAuthentication(req, res, next);
+});
+
+module.exports = apiRouter;
+
+const express = require('express');
+const applicationRouter = express.Router();
+
+const applicationController = require('../Controllers/ApplicationController');
+
+/** Get(/login) and Get(/login/callback) are in index.js due to some problem with routes */
+
+applicationRouter.get('/retrieve-all', applicationController.getAllApplications);
+
+applicationRouter.get('/retrieve-my-all/:id', applicationController.getStudentApplications);
+
+module.exports = applicationRouter;
+
+const express = require('express');
+const authRouter = express.Router();
+
+const authController = require('../Controllers/AuthenticationController');
+
+/** Get(/login) and Get(/login/callback) are in index.js due to some problem with routes */
+
+authRouter.get('/session', authController.session);
+
+module.exports = authRouter;
+
+const express = require('express');
+const cosupRouter = express.Router();
+
+const cosupController = require('../Controllers/CoSupervisorController');
+
+
+cosupRouter.get('/get-all', cosupController.getAllCoSup); 
+
+
+module.exports = cosupRouter;
+
+const express = require('express');
+const degreeRouter = express.Router();
+
+const degreeController = require('../Controllers/DegreeController');
+
+
+degreeRouter.get('/get-all', degreeController.getAllCds); 
+
+
+module.exports = degreeRouter;
+
+const express = require('express');
+const rgroupRouter = express.Router();
+
+const groupsController = require('../Controllers/ResearchGroupController');
+
+
+rgroupRouter.get('/get-all', groupsController.getAllGroups); 
+
+
+module.exports = rgroupRouter;
+
+const express = require('express');
+const searchRouter = express.Router();
+
+const searchController = require('../Controllers/SearchController');
+
+//searchRouter.get('/get-all/:userID', searchController.getAllProposals);
+
+searchRouter.get('/retrieve-all/:userID', searchController.getAllProposals);
+
+searchRouter.get('/search/:userID/:searchTerm', searchController.searchProposals);
+
+module.exports = searchRouter;
+
+
+
+
+const express = require('express');
+const teacherRouter = express.Router();
+
+const teacherController = require('../Controllers/TeacherController');
+
+
+teacherRouter.get('/get-all', teacherController.getAllTeacher); 
+
+
+module.exports = teacherRouter;
+
+const express = require('express');
+const testRouter = express.Router();
+
+const testController = require('../Controllers/TestController');
+
+testRouter.get('/', testController.getTest);
+
+testRouter.post('/', testController.postTest);
+
+module.exports = testRouter;
+
+const express = require('express');
+const thesisRouter = express.Router();
+
+const thesisController = require('../Controllers/ThesisController');
+
+thesisRouter.post('/apply', thesisController.applyForProposal);
+thesisRouter.get('/active-proposals', thesisController.getActiveThesisProposals);
+thesisRouter.get('/archived-proposals', thesisController.getArchivedThesisProposals);
+thesisRouter.get('/accept', thesisController.acceptThesisApplication);
+thesisRouter.get('/reject', thesisController.rejectThesisApplication);
+
+module.exports = thesisRouter;
